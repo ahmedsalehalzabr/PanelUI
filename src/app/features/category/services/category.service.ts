@@ -29,4 +29,8 @@ updateCategory(id:string,updateCategoryRequest:UpdateCategoryRequest) : Observab
   return this.http.put<Category>(`${environment.baseUrl}/api/Categories/${id}`,updateCategoryRequest);
 }
  
+deleteCategory(id:string) : Observable<Category> {
+  return this.http.delete<Category>(`${environment.baseUrl}/api/Categories/${id}`);
+}
+
 }

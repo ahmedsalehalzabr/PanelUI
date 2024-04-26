@@ -60,6 +60,19 @@ ngOnInit(): void {
   })
 
 }
+
+onDelete() : void {
+  if(this.id)
+    {
+      this.categoryServices.deleteCategory(this.id)
+      .subscribe({
+        next: (response) => {
+          this.router.navigateByUrl('/admin/categories');
+        }
+      });
+    }
+}
+
 ngOnDestroy(): void {
   this.paramsSubscription?.unsubscribe();
   this.editCategorySubscription?.unsubscribe();
