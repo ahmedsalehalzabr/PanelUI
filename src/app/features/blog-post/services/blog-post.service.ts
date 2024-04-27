@@ -29,4 +29,8 @@ export class BlogPostService {
     return this.http.put<BlogPost>(`${environment.baseUrl}/api/BlogPost/${id}?addAuth=true`, updatedBlogPost);
   }
 
+  deleteBlogPost(id:string) : Observable<BlogPost> {
+    return this.http.delete<BlogPost>(`${environment.baseUrl}/api/BlogPost/${id}`);
+  }
+
 }

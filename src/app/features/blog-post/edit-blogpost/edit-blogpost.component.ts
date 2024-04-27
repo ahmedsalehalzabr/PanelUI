@@ -6,6 +6,7 @@ import { BlogPost } from '../models/blog-post.model';
 import { Category } from '../../category/models/category.model';
 import { CategoryService } from '../../category/services/category.service';
 import { UpdateBlogPostModel } from '../models/update-blog-post.model';
+import { response } from 'express';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -21,6 +22,7 @@ selectedCategory?: string[];
 routeSubscription?: Subscription;
 updateBlogPostSubscription?: Subscription;
 getBlogPostSubscription?: Subscription;
+deleteBlogPostSubscription?: Subscription;
 
 constructor(private route: ActivatedRoute,
   private blogPostService:BlogPostService,
@@ -75,10 +77,24 @@ onFormSubmit(): void {
 }
 }
 
+onDelete(): void {
+  if (this.id) {
+    //cal service and delete blogpost
+    this.deleteBlogPostSubscription = this.blogPostService.deleteBlogPost(this.id).subscribe
+    ({
+      next: (response) => {
+        this.router.navigateByUrl('/admin/blogposts');
+      }
+    });
+  }
+
+}
+
 ngOnDestroy(): void {
   this.routeSubscription?.unsubscribe();
   this.updateBlogPostSubscription?.unsubscribe();
   this.getBlogPostSubscription?.unsubscribe();
+  this.deleteBlogPostSubscription?.unsubscribe();
 }
 
 
